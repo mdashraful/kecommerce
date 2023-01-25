@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('banner', 128);
             $table->unsignedInteger('category_id')->default(0);
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->onDelete('cascade');
         });
     }
 
