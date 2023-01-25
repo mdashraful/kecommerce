@@ -6,12 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($category){
+            $category->slug = Str::slug($category->name);
+        });
+    }
 
     public function parent_category()
     {
