@@ -12,11 +12,15 @@
                     <div class="col">
                         <div class="card shadow-sm">
                             <div class="">
-                                <img src="{{ $product->getFirstMediaUrl('products') }}" class="card-img-top img-fluid" alt="">
+                                <a href="{{ route('product.details', $product->slug) }}">
+                                    <img src="{{ $product->getFirstMediaUrl('products') }}" class="card-img-top img-fluid" alt="">
+                                </a>
                             </div>
                             <div class="card-body">
                                 <h3 class="card-text">
-                                    {{ $product->title }}
+                                    <a href="{{ route('product.details', $product->slug) }}">
+                                        {{ $product->title }}
+                                    </a>
                                 </h3>
                                 <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">

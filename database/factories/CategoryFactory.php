@@ -17,7 +17,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->colorName(),
+            'name' => fake()->unique()->colorName(),
             'banner' => $this->faker->imageUrl(),
         ];
     }
