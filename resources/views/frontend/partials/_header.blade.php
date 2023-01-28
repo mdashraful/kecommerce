@@ -3,8 +3,16 @@
     <div class="container">
         <div class="row">
         <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">K Ecommerce is a ecommerce management platform developed using Laravel./p>
+            <h4 class="text-white">Categories</h4>
+            <div class="row">
+                <ul class="list-unstyled d-flex gap-3 flex-wrap">
+                    @foreach ($categories as $category)
+                        <li>
+                            <a href="{{ $category->slug }}" class="text-white">{{ $category->name }}</a>
+                        </li>
+                    @endforeach    
+                </ul>
+            </div>
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
             <h4 class="text-white">Menu</h4>
