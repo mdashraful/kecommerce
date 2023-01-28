@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
 
         foreach($products as $product)
         {
-            $product->addMediaFromUrl("https://i.ibb.co/WVKbczV/8-Essential-Smartphone-Accessories.jpg")->toMediaCollection('products');
+            $product->addMediaFromUrl(fake()->imageUrl())->toMediaCollection('products');
         }
     }
 }
