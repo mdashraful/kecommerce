@@ -24,11 +24,23 @@
                                 </h3>
                                 <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                                        Add to Cart
-                                    </button>
+                                    <form action="{{ route('cart.add') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                            Add to Cart
+                                        </button>
+                                    </form>
                                 </div>
-                                <h4 class="text-muted">BDT. {{ $product->price }}/-</h4>
+                                <strong class="text-muted">
+                                    @if ($product->sale_price !== null && $product->sale_price > 0)
+                                        <s class="text-danger">BDT. {{ $product->price }}/-</s>
+                                        BDT. {{ $product->sale_price }}/-
+                                    @else
+                                        BDT. {{ $product->price }}/-
+                                    @endif
+                                    
+                                </strong>
                                 </div>
                             </div>
                         </div>

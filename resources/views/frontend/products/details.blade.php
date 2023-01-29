@@ -35,7 +35,15 @@
                         </dl>
                         <hr>
 
-                        <a href="" class="btn btn-outline-primary">Add To Cart</a>
+                        <div class="btn-group">
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-lg btn-outline-secondary">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </div>
                     </article>
                 </aside>
             </div>

@@ -11,7 +11,9 @@ class HomeController extends Controller
     {
         $data = [];
         $data['products'] = Product::select(['id', 'title', 'slug', 'price', 'sale_price'])
-                            ->where('active', 1)->paginate(9);
+                            ->where('active', 1)
+                            ->orderby('id', 'desc')
+                            ->paginate(9);
 
         return view('frontend.home', $data);
     }
