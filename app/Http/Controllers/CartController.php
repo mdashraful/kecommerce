@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Order;
+use App\Notifications\OrderEmailNotification;
 
 class CartController extends Controller
 {
@@ -143,6 +144,9 @@ class CartController extends Controller
                 'price' => $product['item_price'],    
             ]);
         }
+
+        
+        auth()->user()->notify(new OrderEmailNotification($order, auth()->user()->name));
 
         $this->setSuccess('Order Placed Successfully.');
 
