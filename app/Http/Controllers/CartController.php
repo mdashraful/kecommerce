@@ -99,7 +99,11 @@ class CartController extends Controller
         $data['total_amount'] = array_sum(array_column($data['cart'], 'item_price'));
         session(['total_amount' => $data['total_amount']]);
         // dd(session()->all());
-        return view('frontend.checkout', $data);
+        if($data['cart']) {
+            return view('frontend.checkout', $data);
+        }
+        return back();
+        
     }
 
     public function order ()
@@ -140,10 +144,10 @@ class CartController extends Controller
             ]);
         }
 
-        $this->setSuccess('Order created.');
+        $this->setSuccess('Order Placed Successfully.');
 
         session()->forget(['cart', 'total_amount']);
-        return redirect('/');
+        return redirect()->route('order.details', $order->id);
     }
 
     public function orderDetails ($id)

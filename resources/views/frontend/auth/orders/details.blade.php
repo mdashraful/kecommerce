@@ -2,22 +2,29 @@
 
 @section('main-content')
     <br>
-    <p class="text-center fw-bold display-6">Order Details</p>
+    <p class="text-center fw-bold display-6">#{{ $order->id }} Order Details</p>
     <hr>
 
     <div class="container">
-
-        <h3>Order #{{ $order->id }} details</h3>
+        @include('frontend.partials._message')
+        {{-- @if (session()->has('message'))
+            <div class="alert alert-{{session('type')}}">
+                {{ session('message') }}
+            </div>            
+        @endif --}}
+        <h3>Billing Info</h3>
 
         <ul class="list-group">
             @foreach ($order->toArray() as $column => $value)
-                @if ($column == 'products' || $column == 'user_id' || 
-                    $column == 'operational_status' || $column == 'processed_by')
-                    @continue                    
+                @if(is_string($value))
+                    @if ($column == 'user_id' || $column == 'operational_status' || $column == 'processed_by')
+                        @continue                    
+                    @endif
+                    <li class="list-group-item">
+                        {{ str_replace('_', ' ', ucwords($column)) }}: {{ $value }}
+                    </li>  
                 @endif
-                <li class="list-group-item">
-                    {{ $column }}: {{ $value }}
-                </li>  
+                
             @endforeach
             
         </ul>
@@ -40,12 +47,12 @@
                         <td>{{ $product->product->title}}</td>
                         <td>{{ $product->product->sale_price}}</td>
                         <td>{{ $product->quantity }}</td>
-                        <td>{{ $product->price }}</td>
+                        <td>{{ number_format($product->price, 2) }}</td>
                     </tr>
                     @endforeach
                     <tr class="">
                         <td colspan="4">Total Amount</td>
-                        <td >{{$order->total_amount}}</td>
+                        <td >{{number_format($order->total_amount, 2) }}</td>
                     </tr>
                 </tbody>
             </table>
