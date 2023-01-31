@@ -128,7 +128,7 @@ class CartController extends Controller
             'postal_code' => request()->input('postal_code'),
             'total_amount' => $total_amount,
             'paid_amount' => $total_amount,
-            'payment-details' => 'Cash on Delivery',
+            'payment_details' => 'Cash on Delivery',
         ]);
 
         foreach($cart as $product_id => $product)
@@ -144,5 +144,12 @@ class CartController extends Controller
 
         session()->forget(['cart', 'total_amount']);
         return redirect('/');
+    }
+
+    public function orderDetails ($id)
+    {
+        $order = Order::with('products', 'products.product')->where('id', $id)->first();
+
+        return view('frontend.auth.orders.details', compact('order'));
     }
 }

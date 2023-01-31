@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Notifications\RegistrationEmailNotification;
 use Carbon\Carbon;
+use App\Models\Order;
 
 class AuthController extends Controller
 {
@@ -45,8 +46,9 @@ class AuthController extends Controller
 
             $this->setSuccess('User Logged in.');
 
-            return redirect()->intended();
+            return redirect()->intended('/');
         }
+
         $this->setError('Invalid Credentials');
         return redirect()->back();
     }
@@ -108,6 +110,14 @@ class AuthController extends Controller
         }
         $this->setError('Invalid token.');
         return redirect()->route('login');        
+    }
+
+    public function profile() {
+        $data = [];
+        $user = auth()->user();
+        $data['orders'] = Order::where('user_id', $user->id)->get();
+
+        return view('frontend.auth.profile', $data);
     }
 
     public function logout()

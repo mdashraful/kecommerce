@@ -25,7 +25,7 @@ return new class extends Migration
             $table->decimal('discount_amount', 10,2)->default(0);
             $table->decimal('paid_amount', 10,2);
             $table->string('payment_status', 16)->default('pending');
-            $table->text('payment-details')->nullable();
+            $table->text('payment_details')->nullable();
             $table->string('operational_status', 16)->default('pending');
             $table->unsignedBigInteger('processed_by')->nullable();
             $table->foreign('processed_by')->references('id')->on('users');

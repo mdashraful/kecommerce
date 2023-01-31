@@ -33,12 +33,15 @@ Route::namespace('frontend')->group(function() {
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'processRegister']);
 
-    Route::get('/activate/{tokem}', [AuthController::class, 'activate'])->name('activate');
+    Route::get('/activate/{token}', [AuthController::class, 'activate'])->name('activate');
 
     Route::middleware(['auth'])->group(function(){
         Route::post('/order', [CartController::class, 'order'])->name('order');
 
         Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+       
+        Route::get('/order/{id}', [CartController::class, 'orderDetails'])->name('order.details');
+        
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     });
    
